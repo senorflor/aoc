@@ -15,3 +15,8 @@ the slightly more complicated second problem.
 
 None of this matters with a file of 200 lines/numbers, of course, but what good is coding for fun
 without a few arbitrary constraints here and there?
+
+## Post-rewrite notes
+
+Works! And reads more clearly to my eye too, though that may be the bias of having two solutions
+under my belt now 😃.
