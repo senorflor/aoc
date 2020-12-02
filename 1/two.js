@@ -22,13 +22,13 @@ const process = nums => {
       pairIndex[num1+num2] = [num1, num2]
     }
   }
-  for (let n of nums) {
-    const complement = 2020 - n
+  for (const n0 of nums) {
+    const complement = 2020 - n0
     const lookup = pairIndex[complement]
     if (lookup) {
       const [n1, n2] = lookup
-      const product = n * n1 * n2
-      console.log(`${n} * ${n1} * ${n2} = ${product}`)
+      const product = n0 * n1 * n2
+      console.log(`${n0} * ${n1} * ${n2} = ${product}`)
       break
     }
   }
