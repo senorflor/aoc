@@ -16,6 +16,7 @@ const process = nums => {
   const pairIndex = {}
   for (let i=0; i<nums.length; i++) {
     const num1 = nums[i]
+    // Yo dawg:
     for (let j=i+1; j<nums.length; j++) {
       const num2 = nums[j]
       pairIndex[num1+num2] = [num1, num2]
