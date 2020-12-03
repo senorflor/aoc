@@ -5,7 +5,7 @@ const getLineStream = path => createInterface({
   input: createReadStream(path)
 })
 
-const getFileContents = (path, encoding='utf=8') => readFileSync(path, 'utf8')
+const getFileContents = (path, encoding='utf8') => readFileSync(path, encoding)
 
 const getLineArray = (
   path,
