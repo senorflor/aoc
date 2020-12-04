@@ -1,6 +1,6 @@
-const { getLineArray } = require('../../elvenUtils')
+const { getRecords } = require('../../elvenUtils')
 
-const lines = getLineArray('./input.txt', {
+const lines = getRecords('./input.txt', {
   parserFn: line => {
     const [range, letter, password] = line.split(/:? /)
     const [lo, hi] = range.split('-')

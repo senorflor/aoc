@@ -1,6 +1,6 @@
-const { getLineArray } = require('../elvenUtils')
+const { getRecords } = require('../elvenUtils')
 
-const grid = getLineArray('./input.txt', {
+const grid = getRecords('./input.txt', {
   parserFn: l => l.trim().split("")
 })
 const height = grid.length

@@ -7,19 +7,20 @@ const getLineStream = path => createInterface({
 
 const getFileContents = (path, encoding='utf8') => readFileSync(path, encoding)
 
-const getLineArray = (
+const getRecords = (
   path,
   {
-    filterFn = l => l, // by default discard empty lines since Unix likes terminal newline
-    parserFn = l => l.trim(),
+    delimiter = '\n',
+    filterFn = r => r, // by default discard empty records
+    parserFn = r => r.trim(),
   }
 ) => getFileContents(path)
-  .split('\n')
+  .split(delimiter)
   .filter(filterFn)
   .map(parserFn)
 
 module.exports = {
   getLineStream,
   getFileContents,
-  getLineArray
+  getRecords
 }
