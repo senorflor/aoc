@@ -19,7 +19,7 @@ SHIP IT
 ### Prerequisites
 
 You'll need Node.js v15 and up, because I used
-[`String.prototype.replaceAll()`](https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V15.md#v8-86---35415)
+[`String.prototype.replaceAll()`](https://github.com/nodejs/node/blob/0fd121e00c9d5987c20c27a4ee4295da7735d9de/doc/changelogs/CHANGELOG_V15.md#v8-86---35415)
 on [day 5](./5).
 
 ### Execute all solutions at once
