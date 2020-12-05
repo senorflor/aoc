@@ -13,3 +13,17 @@ for coding challenges, and record the resulting notes/rewriting in nested
 SHIP IT
 
 🛂🚢🛳️🛥️🚣‍♂️⛵
+
+## Run it
+
+### Prerequisites
+
+You'll need Node.js v15 and up, because I used
+[`String.prototype.replaceAll()`](https://github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V15.md#v8-86---35415)
+on [day 5](./5).
+
+### Execute all solutions at once
+
+```bash
+./runAllJs.sh
+```
