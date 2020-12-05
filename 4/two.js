@@ -21,6 +21,7 @@ const required = [
 
 const parseYear = str => str.match(/\d{4}/) ? parseInt(str, 10) : -1
 const parseHeight = str => {
+  // I have been naughty, not nice.
   const [, n, unit] = str.match(/^(\d+)(in|cm)$/) || [null, -1, 'in']
   return [n, unit]
 }
