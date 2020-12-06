@@ -8,7 +8,7 @@ const records = getRecords('./input.txt', {
     .map(m => new Set(m))
 })
 
-fullBallot = new Set('abcdefghijklmnopqrstuvwxyz')
+const fullBallot = new Set('abcdefghijklmnopqrstuvwxyz')
 let count = 0
 records.forEach(group => {
   const unanimous = group
