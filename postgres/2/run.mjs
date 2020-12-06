@@ -15,9 +15,6 @@ await db.query(`
     password TEXT
   );
 `)
-await db.query(`
-  delete from passwords;
-`)
 const passwordRecords = Utils.getRecords('./input.txt', {
   parserFn: r => {
     const [policy, password] = r.split(": ")
