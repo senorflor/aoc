@@ -25,5 +25,7 @@ on [day 5](./js/5).
 ### Execute all solutions at once
 
 ```bash
-./runAllJs.sh
+pushd js > /dev/null &&
+./runAllJs.sh &&
+popd > /dev/null
 ```
