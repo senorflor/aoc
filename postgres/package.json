@@ -28,6 +28,13 @@
   },
   "platter": {
     "postgres": {
+      "10937d6d-d645-4b39-aedc-6dd3346031b3": {
+        "autoBranch": true,
+        "platforms": [
+          "node"
+        ],
+        "directory": "platter"
+      },
       "f9576fe1-d5c5-4f84-b43d-2ae8ab3a4ef6": {
         "autoBranch": true,
         "platforms": [
