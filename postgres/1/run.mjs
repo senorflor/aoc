@@ -41,8 +41,7 @@ const [{one, two, three}] = await db.query(`
   SELECT 
     a.amount AS one,
     b.amount AS two,
-    2020 - a.amount - b.amount AS three,
-    a.amount + b.amount AS total
+    2020 - a.amount - b.amount AS three
   FROM
     expenses AS a, expenses as b
   WHERE
