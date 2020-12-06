@@ -1,0 +1,40 @@
+{
+  "name": "aoc",
+  "version": "1.0.0",
+  "description": "Advent of Code with Platter Postgres",
+  "main": "index.js",
+  "scripts": {
+    "create-db": "platter postgres create",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/senorflor/aoc.git"
+  },
+  "keywords": [
+    "aoc",
+    "advent-of-code",
+    "advent-of-code-2020"
+  ],
+  "author": "Patrick Flor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/senorflor/aoc/issues"
+  },
+  "homepage": "https://github.com/senorflor/aoc#readme",
+  "devDependencies": {
+    "@platter/cli": "^0.3.1",
+    "@platter/identity-node": "^0.2.2"
+  },
+  "platter": {
+    "postgres": {
+      "f9576fe1-d5c5-4f84-b43d-2ae8ab3a4ef6": {
+        "autoBranch": true,
+        "platforms": [
+          "node"
+        ],
+        "directory": "platter"
+      }
+    }
+  }
+}
