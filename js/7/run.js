@@ -55,7 +55,6 @@ const colorCheck = (bag, colors) => {
 }
 
 // Search down contains tree for required bag count
-console.log(tree)
 const contentsCheck = (bag) => {
   let count = 1 // self
   const children = tree[bag]
