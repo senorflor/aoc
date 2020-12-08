@@ -12,13 +12,13 @@ const exec = (
   prog=ops
 ) => {
   // Start with success in mind inspirational poster dot gif
-  if (curr === ops.length) {
+  if (curr === prog.length) {
     console.log(acc)
     return
   }
 
   // ... or fail fast.
-  if (trace.has(curr) || curr < 0 || curr > ops.length) {
+  if (trace.has(curr) || curr < 0 || curr > prog.length) {
     return
   }
 
