@@ -23,12 +23,53 @@
   },
   "homepage": "https://github.com/senorflor/aoc#readme",
   "devDependencies": {
-    "@platter/cli": "^0.3.1",
     "@platter/identity-node": "^0.2.2"
   },
   "platter": {
     "postgres": {
+      "000deef0-e909-4a16-8b3d-51fb4425dba6": {
+        "autoBranch": true,
+        "platforms": [
+          "node"
+        ],
+        "directory": "platter"
+      },
       "10937d6d-d645-4b39-aedc-6dd3346031b3": {
+        "autoBranch": true,
+        "platforms": [
+          "node"
+        ],
+        "directory": "platter"
+      },
+      "6aa6b16d-97a7-487e-823e-9f169f57063f": {
+        "autoBranch": true,
+        "platforms": [
+          "node"
+        ],
+        "directory": "platter"
+      },
+      "8bb2191b-24eb-4ec4-a9e2-b1fc1b5333a6": {
+        "autoBranch": true,
+        "platforms": [
+          "node"
+        ],
+        "directory": "platter"
+      },
+      "964a0367-6e00-4cfa-ab7d-f04c96ffc7cf": {
+        "autoBranch": true,
+        "platforms": [
+          "node"
+        ],
+        "directory": "platter"
+      },
+      "c2a6c998-eefe-4905-b34e-19b73a4d36ac": {
+        "autoBranch": true,
+        "platforms": [
+          "node"
+        ],
+        "directory": "platter"
+      },
+      "eea3dde0-209c-44ca-9041-9a2999f0beee": {
         "autoBranch": true,
         "platforms": [
           "node"
@@ -43,5 +84,8 @@
         "directory": "platter"
       }
     }
+  },
+  "dependencies": {
+    "platter": "^0.3.4"
   }
 }

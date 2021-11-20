@@ -21,7 +21,7 @@ for (let [i, j] = [0, 1]; j < joltages.length; i++, j++) {
 console.log(ones * threes)
 
 // Part 2: Data super weird! Gaps of 1 or 3 only. This allows greedy algo: gaps of 3 divide adapter
-// stream into independent segments of 1 jolt diffs, which have OIES A000073, aka Tribonacci,
+// stream into independent segments of 1 jolt diffs, which have OIES A000073, aka Tribonacci seq.,
 // configurations
 let prev = -1
 let currSegment = []
