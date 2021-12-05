@@ -48,9 +48,11 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 DAY_DIR="$SCRIPT_DIR/$(printf %02d $DAY)"
 mkdir -p "$DAY_DIR"
 
-# Get input file and JS solution template in place
+# Get input file and JS solution template (don't overwrite) in place
 pbpaste > $DAY_DIR/input.txt
-cp "$SCRIPT_DIR/template.js" "$DAY_DIR/index.js"
+if [ ! -f "$DAY_DIR/index.js" ]; then
+  cp "$SCRIPT_DIR/template.js" "$DAY_DIR/index.js"
+fi
 
 # open VS Code instance for this problem
 code "$DAY_DIR"
