@@ -1,0 +1,56 @@
+#! /usr/bin/env bash
+
+## MacOS-specific utilities are used in this script, and
+## it's also hard wired to Google Chrome as a browser.
+## Works on my machine ¯\_(ツ)_/¯
+
+if [ $# -ne 1 ]; then
+  echo "Please provide the day of AOC (1 - 25) as an argument"
+  exit 1
+fi
+
+DAY=$((10#$1))
+
+if [ $DAY -lt 1 ] || [ $DAY -gt 25 ]; then
+  echo "The day of AOC must be in the appropriate range: 1 - 25"
+  exit 1
+fi
+
+# Hack with osascript instead of dealing with cookies and curl.
+osascript - "$DAY" <<EndOfScript
+on run argv
+  tell application "Google Chrome"
+    activate
+    delay 0.5
+    tell application "System Events"
+      -- Get the problem input in the paste buffer
+      keystroke "t" using {command down}
+      delay 0.5
+      keystroke "https://adventofcode.com/2021/day/" & item 1 of argv & "/input"
+      keystroke return
+      delay 1
+      keystroke "a" using {command down}
+      keystroke "c" using {command down}
+      delay 0.5
+
+      -- Open problem desctription in new tab
+      keystroke "t" using {command down}
+      delay 0.5
+      keystroke "https://adventofcode.com/2021/day/" & item 1 of argv
+      keystroke return
+    end tell
+  end tell
+end run
+EndOfScript
+
+# Make day's directory if not extant already; pad single digit days with a 0
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+DAY_DIR="$SCRIPT_DIR/$(printf %02d $DAY)"
+mkdir -p "$DAY_DIR"
+
+# Get input file and JS solution template in place
+pbpaste > $DAY_DIR/input.txt
+cp "$SCRIPT_DIR/template.js" "$DAY_DIR/index.js"
+
+# open VS Code instance for this problem
+code "$DAY_DIR"
