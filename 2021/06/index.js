@@ -16,7 +16,7 @@ console.log(fishCount(initial))
 
 // Part 2; retain results of previous part for silly small efficieny gain
 // Note the re-starting iteration, 81, mod 9, is 0.
-for (let i = 0; i < 176; i++) {
+for (let i = 80; i < 256; i++) {
   initial[(i + 7) % 9] += initial[i % 9]
 }
 console.log(fishCount(initial))
