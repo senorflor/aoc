@@ -6,13 +6,17 @@ const input = require('fs').readFileSync(
 // Part 1
 let ans1 = 0
 for (let i = 1; i < input.length; i++) {
-  ans1 += (input[i] > input[i - 1] ? 1 : 0)
+  const start = input[i - 1]
+  const end = input[i]
+  ans1 += end > start ? 1 : 0
 }
 console.log(ans1)
 
 // Part 2
 let ans2 = 0
-for (let j = 3; j < input.length; j++) {
-  ans2 += input[j] > input[j - 3] ? 1 : 0
+for (let i = 3; i < input.length; i++) {
+  const start = input[i - 3]
+  const end = input[i]
+  ans2 += end > start ? 1 : 0
 }
 console.log(ans2)
