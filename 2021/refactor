@@ -7,5 +7,6 @@ fi
 fswatch -o . | xargs -n1 -I{} sh -c "\
   node index.js | \
   diff -q answers.txt - > /dev/null && \
-  echo 'PASS' || echo 'FAIL' \
+    printf \"\033[32mPASS\033[m\n\" || \
+    printf \"\033[31mFAIL\033[m\n\" \
 "
