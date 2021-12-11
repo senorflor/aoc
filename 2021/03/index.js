@@ -5,7 +5,9 @@ const input = require('fs').readFileSync(
   l => l.trim().split('').map(Number)
 )
 // Part 1
-const placeTotals = Array(input[0].length).fill(0)
+const READING_WIDTH = input[0].length
+const TOTAL = 2 ** READING_WIDTH - 1 // gamma + epsilon always complement to this total
+const placeTotals = Array(READING_WIDTH).fill(0)
 input.forEach(reading => {
   for (let i = 0; i < reading.length; i++) {
     placeTotals[i] += reading[i]
@@ -16,7 +18,6 @@ const gamma = parseInt(
   placeTotals.map(n => n > threshold ? '1' : '0').join(''),
   2
 )
-const TOTAL = 2 ** 12 - 1
 const epsilon = TOTAL - gamma
 const part1 = gamma * epsilon
 console.log(part1)
