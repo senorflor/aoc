@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [ ! -f "./answers.txt" ]; then
+  node index.js > ./answers.txt
+fi
+
+fswatch -o . | xargs -n1 -I{} sh -c "\
+  node index.js | \
+  diff -q answers.txt - > /dev/null && \
+  echo 'PASS' || echo 'FAIL' \
+"

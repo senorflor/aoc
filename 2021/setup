@@ -54,5 +54,8 @@ if [ ! -f "$DAY_DIR/index.js" ]; then
   cp "$SCRIPT_DIR/template.js" "$DAY_DIR/index.js"
 fi
 
+# Link refactor and watch scripts using pushd/popd, bc. I always mess up ln -s otherwise.
+pushd "$DAY_DIR" && ln -s ../refactor refactor && ln -s ../watch watch && popd
+
 # open VS Code instance for this problem
-code "$DAY_DIR"
+code "$DAY_DIR" "$DAY_DIR/index.js" "$DAY_DIR/input.txt"

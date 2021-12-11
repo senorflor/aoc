@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+node index.js
+fswatch -o . | xargs -n1 -I{} sh -c '\
+  echo "Change detected; rerunning" && \
+  node index.js \
+'
