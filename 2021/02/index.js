@@ -1,10 +1,7 @@
 const input = require('fs').readFileSync(
   __dirname + '/input.txt',
   'utf8'
-).trim().split('\n').map(
-  // Parse here
-  l => l.split(' ')
-)
+).trim().split('\n').map(l => l.split(' '))
 
 // Part 1
 let h = 0
