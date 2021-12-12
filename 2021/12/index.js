@@ -14,46 +14,50 @@ for (const [c1, c2] of input) {
   caveAdjacencyList.get(c1).push(c2)
   caveAdjacencyList.get(c2).push(c1)
 }
+
+// Helper functions
 const isSmall = s => s.toLowerCase() == s
 
 // Part 1
-const visited = new Set(['start'])
-let pathCount = 0
-const search = (graph, current, visited) => {
-  for (const next of graph.get(current)) {
-    if (visited.has(next)) {
+const countPaths = (graph, currentCave, visited) => {
+  let pathCount = 0
+  for (const nextCave of graph.get(currentCave)) {
+    if (visited.has(nextCave)) {
       continue
-    } else if (next === 'end') {
-      pathCount++
+    } else if (nextCave === 'end') {
+      // https://www.youtube.com/watch?v=LlhKZaQk860
+      pathCount += 1
     } else {
-      search(
+      pathCount += countPaths(
         graph,
-        next,
-        isSmall(next) ? new Set([...visited, next]) : visited,
+        nextCave,
+        isSmall(nextCave) ? new Set([...visited, nextCave]) : visited,
       )
     }
   }
+  return pathCount
 }
-search(caveAdjacencyList, 'start', visited)
-console.log(pathCount)
+console.log(
+  countPaths(caveAdjacencyList, 'start', new Set(['start']))
+)
 
 // Part 2
-const visited2 = new Set(['start'])
-let pathCount2 = 0
-const search2 = (graph, current, visited, doubledBack) => {
+const countPathsWithARepeat = (graph, current, visited, doubledBack) => {
+  let pathCount = 0
   for (const next of graph.get(current)) {
     if (visited.has(next)) {
       if (!doubledBack && next !== 'start') {
-        search2(graph, next, visited, true)
+        // https://www.youtube.com/watch?v=cii6ruuycQA
+        pathCount += countPathsWithARepeat(graph, next, visited, true)
       } else {
         continue
       }
     }
     else if (next === 'end') {
-      pathCount2++
+      pathCount += 1
     }
     else {
-      search2(
+      pathCount += countPathsWithARepeat(
         graph,
         next,
         isSmall(next) ? new Set([...visited, next]) : visited,
@@ -61,6 +65,8 @@ const search2 = (graph, current, visited, doubledBack) => {
       )
     }
   }
+  return pathCount
 }
-search2(caveAdjacencyList, 'start', visited2, false)
-console.log(pathCount2)
+console.log(
+  countPathsWithARepeat(caveAdjacencyList, 'start', new Set(['start']), false)
+)
