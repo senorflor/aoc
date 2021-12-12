@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-if [ ! -f "./answers.txt" ]; then
-  node index.js > ./answers.txt
-fi
+# Assuming we're only running this script after completing the day's problems!
+node index.js | tee ./answers.txt
 
 fswatch -o . | xargs -n1 -I{} sh -c "\
   node index.js | \
