@@ -50,38 +50,38 @@ console.log(overlaps)
 
 // Part 2
 const linePts2 = ([[x1, y1], [x2, y2]]) => {
-  const xmax = Math.max(x1, x2)
-  const xmin = Math.min(x1, x2)
-  const ymax = Math.max(y1, y2)
-  const ymin = Math.min(y1, y2)
+  const { xmin, xmax, ymin, ymax } = minMax(line)
   const points = []
   if (xmin === xmax || ymin === ymax) {
+    // Axilinear line
     for (let x = xmin; x <= xmax; x++) {
       for (let y = ymin; y <= ymax; y++) {
         points.push(`${x},${y}`)
       }
     }
   } else if ((x1 < x2 && y1 < y2) || (x1 > x2 && y1 > y2)) {
+    // Positive diagonal
     for (let n = 0; n <= xmax - xmin; n++) {
       points.push(`${xmin + n},${ymin + n}`)
     }
   } else {
+    // Negative diagonal 
     for (let n = 0; n <= xmax - xmin; n++) {
       points.push(`${xmin + n},${ymax - n}`)
     }
   }
   return points
 }
-let overlapped2 = 0
-const overlapCounts2 = new Map()
+let allOverlaps = 0
+const allOverlapCounts = new Map()
 for (line of input) {
   const points = linePts2(line)
   for (let point of points) {
-    const count = overlapCounts2.get(point) || 0
+    const count = allOverlapCounts.get(point) || 0
     if (count === 1) {
-      overlapped2 += 1
+      allOverlaps += 1
     }
-    overlapCounts2.set(point, count + 1)
+    allOverlapCounts.set(point, count + 1)
   }
 }
-console.log(overlapped2)
+console.log(allOverlaps)
