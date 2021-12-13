@@ -6,7 +6,7 @@ try { dirname = __dirname } catch { dirname = '.' }
 const input = require('fs').readFileSync(
   dirname + '/input.txt',
   'utf8'
-).trim().split('\n').map(l => l.split('-'))
+).trim().split('\n').map(l => l.split('-')) // [['start', 'blah'], ['blah', 'end']...]
 
 // Create map of caves
 const caves = new Map(input.flat().map(c => [c, []]))
