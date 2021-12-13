@@ -3,67 +3,71 @@ let dirname
 try { dirname = __dirname } catch { dirname = '.' }
 
 // Get input
-const input = require('fs').readFileSync(
+const cavern = require('fs').readFileSync(
   dirname + '/input.txt',
   'utf8'
-).trim().split('\n').map(
-  // Parse here
-  // Don't forget to parseInt() / Number() as necessary.
-  l => l.split('').map(Number)
-)
+).trim().split('\n').map(l => l.split('').map(Number))
 
-// Part 1
-const neighbors = ([x, y]) => [
-  [x - 1, y - 1],
-  [x - 1, y],
-  [x - 1, y + 1],
-  [x, y - 1],
-  [x, y + 1],
-  [x + 1, y - 1],
-  [x + 1, y],
-  [x + 1, y + 1],
-].filter(([x, y]) => x >= 0 && y >= 0 && x < input.length && y < input[0].length)
-
-const ptStr = ([x, y]) => `${x},${y}`
-
-const inc = (cavern, [x, y]) => {
-  cavern[x][y]++
+// Helpers
+const inc = (matrix, [r, c]) => {
+  matrix[r][c]++
 }
+const mForEach = (matrix, fn) => {
+  for (let r = 0; r < matrix.length; r++) {
+    for (let c = 0; c < matrix[r].length; c++) {
+      const cell = matrix[r][c]
+      fn(cell, r, c, matrix)
+    }
+  }
+}
+const mInc = matrix => {
+  mForEach(matrix, (val, r, c, m) => m[r][c] = val + 1)
+}
+const neighbors = ([r, c], matrix) => [
+  [r - 1, c - 1],
+  [r - 1, c],
+  [r - 1, c + 1],
+  [r, c - 1],
+  [r, c + 1],
+  [r + 1, c - 1],
+  [r + 1, c],
+  [r + 1, c + 1],
+].filter(([r, c]) => r >= 0 && c >= 0 && r < matrix.length && c < matrix[0].length)
+// Work around lack of array of values identity in JS
+const ptStr = ([r, c]) => `${r},${c}`
 
+// Part 1 and 2
 let totalFlashes = 0
-for (let i = 0; i < 100000; i++) {
+let flashedEnough = false
+for (let step = 1; step <= 100 || !flashedEnough; step++) {
+  mInc(cavern)
+  // Flashdance https://www.youtube.com/watch?v=6Vx4J_NtNPk
   const flashed = new Set()
-  for (let x = 0; x < input.length; x++) {
-    for (let y = 0; y < input[0].length; y++) {
-      inc(input, [x, y])
-    }
-  }
   while (true) {
-    let newFlash = false
-    for (let x = 0; x < input.length; x++) {
-      for (let y = 0; y < input[0].length; y++) {
-        const ptKey = ptStr([x, y])
-        if (input[x][y] > 9 && !flashed.has(ptKey)) {
-          newFlash = true
-          totalFlashes += 1
-          flashed.add(ptKey)
-          neighbors([x, y]).map(pt => inc(input, pt))
-        }
+    let previousFlashes = totalFlashes
+    mForEach(cavern, (o, r, c) => {
+      const ptKey = ptStr([r, c])
+      if (o > 9 && !flashed.has(ptKey)) {
+        newFlash = true
+        totalFlashes += 1
+        flashed.add(ptKey)
+        neighbors([r, c], cavern).map(pt => inc(cavern, pt))
       }
-    }
-    if (!newFlash) break
+    })
+    if (totalFlashes == previousFlashes) break
   }
-  if (flashed.size == 100) {
-    // Part 2
-    console.log(`Part 2: ${i + 1}`)
-    break
-  }
-  for (let x = 0; x < input.length; x++) {
-    for (let y = 0; y < input[0].length; y++) {
-      if (input[x][y] > 9) input[x][y] = 0
-    }
-  }
-  if (i === 99) {
+  // Rest up, octopuses.
+  mForEach(cavern, (o, r, c, cavern) => {
+    if (o > 9) cavern[r][c] = 0
+  })
+
+  // Part 1
+  if (step === 100) {
     console.log(`Part 1: ${totalFlashes}`)
+  }
+  // Part 2
+  if (flashed.size == 100) {
+    console.log(`Part 2: ${step}`)
+    flashedEnough = true
   }
 }
