@@ -8,65 +8,52 @@ const input = require('fs').readFileSync(
   'utf8'
 ).trim().split('\n').map(l => l.split('-'))
 
-// Create graph of caves
-const caveAdjacencyList = new Map(input.flat().map(c => [c, []]))
+// Create map of caves
+const caves = new Map(input.flat().map(c => [c, []]))
 for (const [c1, c2] of input) {
-  caveAdjacencyList.get(c1).push(c2)
-  caveAdjacencyList.get(c2).push(c1)
+  caves.get(c1).push(c2)
+  caves.get(c2).push(c1)
 }
 
 // Helper functions
 const isSmall = s => s.toLowerCase() == s
+const sum = (a, b) => a + b
 
 // Part 1
-const countPaths = (graph, currentCave, visited) => {
-  let pathCount = 0
-  for (const nextCave of graph.get(currentCave)) {
-    if (visited.has(nextCave)) {
-      continue
-    } else if (nextCave === 'end') {
-      // https://www.youtube.com/watch?v=LlhKZaQk860
-      pathCount += 1
-    } else {
-      pathCount += countPaths(
-        graph,
-        nextCave,
-        isSmall(nextCave) ? new Set([...visited, nextCave]) : visited,
-      )
-    }
-  }
-  return pathCount
+const countPaths = (caves, here, visited) => {
+  return (here === 'end')
+    ? 1
+    : caves.get(here)
+      .filter(
+        next => !visited.has(next)
+      ).map(
+        next => countPaths(
+          caves,
+          next,
+          isSmall(next) ? new Set([...visited, next]) : visited)
+      ).reduce(sum, 0)
 }
 console.log(
-  countPaths(caveAdjacencyList, 'start', new Set(['start']))
+  countPaths(caves, 'start', new Set(['start']))
 )
 
 // Part 2
-const countPathsWithARepeat = (graph, current, visited, doubledBack) => {
-  let pathCount = 0
-  for (const next of graph.get(current)) {
-    if (visited.has(next)) {
-      if (!doubledBack && next !== 'start') {
-        // https://www.youtube.com/watch?v=cii6ruuycQA
-        pathCount += countPathsWithARepeat(graph, next, visited, true)
-      } else {
-        continue
-      }
-    }
-    else if (next === 'end') {
-      pathCount += 1
-    }
-    else {
-      pathCount += countPathsWithARepeat(
-        graph,
-        next,
-        isSmall(next) ? new Set([...visited, next]) : visited,
-        doubledBack,
-      )
-    }
-  }
-  return pathCount
+const countPathsWithARepeat = (caves, here, visited, looped) => {
+  return (here === 'end')
+    ? 1
+    : caves.get(here)
+      .filter(
+        next =>
+          !visited.has(next) ||
+          (!looped && next !== 'start')
+      ).map(
+        next => countPathsWithARepeat(
+          caves,
+          next,
+          isSmall(next) ? new Set([...visited, next]) : visited,
+          visited.has(next) ? true : looped)
+      ).reduce(sum, 0)
 }
 console.log(
-  countPathsWithARepeat(caveAdjacencyList, 'start', new Set(['start']), false)
+  countPathsWithARepeat(caves, 'start', new Set(['start']), false)
 )
