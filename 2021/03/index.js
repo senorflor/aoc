@@ -2,11 +2,11 @@ const input = require('./input.js')
   .split('\n')
   .map(l => l
     .trim()
-    .split('')
-    .map(Number)
   )
 // Helpers
 const binaryArrayToNumber = arr => parseInt(arr.join(''), 2)
+const ZERO = 48
+const ONE = 49
 
 // Part 1
 const powerConsumption = (readings) => {
@@ -14,7 +14,7 @@ const powerConsumption = (readings) => {
   const readingLength = readings[0].length
   const bitwisePowerConsumption = readings
     .reduce(
-      (totals, r) => totals.map((total, place) => total += r.at(place)),
+      (totals, r) => totals.map((total, place) => total += (r.codePointAt(place) == ONE) ? 1 : 0),
       Array(readingLength).fill(0)
     )
     .map(
@@ -29,28 +29,28 @@ console.log(powerConsumption(input))
 
 // Part 2
 const lifeSupportRating = (readings) => {
-  let o2 = [...readings.keys()]
-  let co2 = [...readings.keys()]
+  let o2 = [...readings]
+  let co2 = [...readings]
   for (let i = 0; i < readings[0].length; i++) {
     if (o2.length > 1) {
       let count = 0
       o2.forEach(r => {
-        count += readings[r][i] ? 1 : -1
+        count += (r.codePointAt(i) == ONE) ? 1 : -1
       })
-      const bit = (count < 0) ? 0 : 1
-      o2 = o2.filter(r => readings[r][i] === bit)
+      const bit = (count < 0) ? ZERO : ONE
+      o2 = o2.filter(r => r.codePointAt(i) == bit)
     }
     if (co2.length > 1) {
       let count = 0
       co2.forEach(r => {
-        count += readings[r][i] ? 1 : -1
+        count += (r.codePointAt(i)) == ONE ? 1 : -1
       })
-      const bit = (count < 0) ? 1 : 0
-      co2 = co2.filter(r => readings[r][i] === bit)
+      const bit = (count < 0) ? ONE : ZERO
+      co2 = co2.filter(r => r.codePointAt(i) == bit)
     }
   }
-  const o2rating = binaryArrayToNumber(readings[o2[0]])
-  const co2rating = binaryArrayToNumber(readings[co2[0]])
+  const o2rating = parseInt(o2[0], 2)
+  const co2rating = parseInt(co2[0], 2)
 
   return o2rating * co2rating
 }
