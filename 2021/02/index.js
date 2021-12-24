@@ -3,6 +3,9 @@ const input = require('./input.js')
   .map(
     l => l.split(' ')
   )
+  .map(
+    ([dir, n]) => [dir, +n]
+  )
 
 // Helper
 const driveSub = (course, instructions, start) => {
@@ -10,8 +13,7 @@ const driveSub = (course, instructions, start) => {
 }
 
 // Part 1
-const driver1 = ([h, d], [dir, n]) => {
-  const diff = +n
+const driver1 = ([h, d], [dir, diff]) => {
   switch (dir) {
     case 'forward':
       return [h + diff, d]
@@ -28,8 +30,7 @@ const driver1 = ([h, d], [dir, n]) => {
 }
 
 // Part 2
-const driver2 = ([h, d, aim], [dir, n]) => {
-  const diff = +n
+const driver2 = ([h, d, aim], [dir, diff]) => {
   switch (dir) {
     case 'forward':
       return [h + diff, d + aim * diff, aim]
