@@ -29,30 +29,35 @@ console.log(powerConsumption(input))
 
 // Part 2
 const lifeSupportRating = (readings) => {
-  let o2 = [...readings.keys()]
-  let co2 = [...readings.keys()]
-  for (let i = 0; i < readings[0].length; i++) {
-    if (o2.length > 1) {
-      let count = 0
-      o2.forEach(r => {
-        count += readings[r][i] ? 1 : -1
-      })
-      const bit = (count < 0) ? 0 : 1
-      o2 = o2.filter(r => readings[r][i] === bit)
-    }
-    if (co2.length > 1) {
-      let count = 0
-      co2.forEach(r => {
-        count += readings[r][i] ? 1 : -1
-      })
-      const bit = (count < 0) ? 1 : 0
-      co2 = co2.filter(r => readings[r][i] === bit)
-    }
-  }
-  const o2rating = binaryArrayToNumber(readings[o2[0]])
-  const co2rating = binaryArrayToNumber(readings[co2[0]])
+  const readingLength = readings[0].length
 
-  return o2rating * co2rating
+  // Find correct reading for o2 rating:
+  let o2 = [...readings]
+  for (let i = 0; i < readingLength && o2.length > 1; i++) {
+    let count = 0
+    o2.forEach(reading => {
+      count += reading[i] ? 1 : -1
+    })
+    const bit = (count < 0) ? 0 : 1
+    o2 = o2.filter(reading => reading[i] === bit)
+  }
+
+  // Find correct reading for co2 rating:
+  let co2 = [...readings]
+  for (let i = 0; i < readingLength && co2.length > 1; i++) {
+    let count = 0
+    co2.forEach(reading => {
+      count += reading[i] ? 1 : -1
+    })
+    const bit = (count < 0) ? 1 : 0
+    co2 = co2.filter(reading => reading[i] === bit)
+  }
+
+  // Calculate final rating
+  const o2rating = binaryArrayToNumber(o2[0])
+  const co2rating = binaryArrayToNumber(co2[0])
+  const lifeSupportRating = o2rating * co2rating
+  return lifeSupportRating
 }
 
 console.log(lifeSupportRating(input))
