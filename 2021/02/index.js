@@ -24,6 +24,8 @@ const driver1 = ([h, d], [dir, diff]) => {
   }
 }
 
+// Use const + block scope so that we can reuse meaningful const h and d
+// identifiers in part two without top-level variables/reassignment.
 {
   const [h, d] = driveSub(input, driver1, [0, 0])
   console.log(h * d)
