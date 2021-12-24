@@ -1,7 +1,6 @@
-const input = require('fs').readFileSync(
-  __dirname + '/input.txt',
-  'utf8'
-).trim().split('\n').map(Number)
+const input = require('./input.js')
+  .split('\n')
+  .map(Number)
 
 const countDescents = (depths, windowSize) => {
   let count = 0
