@@ -6,8 +6,8 @@ const input = require('fs').readFileSync(
 const countDescents = (depths, windowSize) => {
   let count = 0
   for (let x = windowSize; x < depths.length; x++) {
-    const start = depths[x - windowSize]
-    const end = depths[x]
+    const start = depths.at(x - windowSize)
+    const end = depths.at(x)
     count += end > start ? 1 : 0
   }
   return count
