@@ -7,7 +7,9 @@ const countDescents = (depths, windowSize) => {
   for (let x = windowSize; x < depths.length; x++) {
     const start = depths.at(x - windowSize)
     const end = depths.at(x)
-    count += end > start ? 1 : 0
+    if (end > start) {
+      count++
+    }
   }
   return count
 }
