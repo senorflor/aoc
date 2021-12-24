@@ -4,50 +4,43 @@ const input = require('./input.js')
     l => l.split(' ')
   )
 
-// Part 1
-const pilotSub1 = (commands) => {
-  let h = 0
-  let d = 0
-  commands.forEach(([dir, n]) => {
-    n = parseInt(n)
-    switch (dir) {
-      case 'forward':
-        h += n
-        break;
-      case 'up':
-        d -= n
-        break;
-      case 'down':
-        d += n
-        break;
-    }
-  })
-  return h * d
+// Helper
+const driveSub = (course, instructions, start) => {
+  return course.reduce(instructions, start)
 }
 
-console.log(pilotSub1(input))
+// Part 1
+const driver1 = ([h, d], [dir, n]) => {
+  const diff = +n
+  switch (dir) {
+    case 'forward':
+      return [h + diff, d]
+    case 'up':
+      return [h, d - diff]
+    case 'down':
+      return [h, d + diff]
+  }
+}
+
+{
+  const [h, d] = driveSub(input, driver1, [0, 0])
+  console.log(h * d)
+}
 
 // Part 2
-const pilotSub2 = (commands) => {
-  h = 0
-  d = 0
-  let aim = 0
-  commands.forEach(([dir, n]) => {
-    n = parseInt(n)
-    switch (dir) {
-      case 'forward':
-        h += n
-        d += aim * n
-        break;
-      case 'up':
-        aim -= n
-        break;
-      case 'down':
-        aim += n
-        break;
-    }
-  })
-  return h * d
+const driver2 = ([h, d, aim], [dir, n]) => {
+  const diff = +n
+  switch (dir) {
+    case 'forward':
+      return [h + diff, d + aim * diff, aim]
+    case 'up':
+      return [h, d, aim - diff]
+    case 'down':
+      return [h, d, aim + diff]
+  }
 }
 
-console.log(pilotSub2(input))
+{
+  const [h, d] = driveSub(input, driver2, [0, 0, 0])
+  console.log(h * d)
+}
