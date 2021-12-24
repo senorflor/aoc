@@ -1,46 +1,53 @@
-const input = require('fs').readFileSync(
-  __dirname + '/input.txt',
-  'utf8'
-).trim().split('\n').map(l => l.split(' '))
+const input = require('./input.js')
+  .split('\n')
+  .map(
+    l => l.split(' ')
+  )
 
 // Part 1
-let h = 0
-let d = 0
-input.forEach(([dir, n]) => {
-  n = parseInt(n)
-  switch (dir) {
-    case 'forward':
-      h += n
-      break;
-    case 'up':
-      d -= n
-      break;
-    case 'down':
-      d += n
-      break;
-  }
-})
-const part1 = d * h
-console.log(part1)
+const pilotSub1 = (commands) => {
+  let h = 0
+  let d = 0
+  commands.forEach(([dir, n]) => {
+    n = parseInt(n)
+    switch (dir) {
+      case 'forward':
+        h += n
+        break;
+      case 'up':
+        d -= n
+        break;
+      case 'down':
+        d += n
+        break;
+    }
+  })
+  return h * d
+}
+
+console.log(pilotSub1(input))
 
 // Part 2
-h = 0
-d = 0
-let aim = 0
-input.forEach(([dir, n]) => {
-  n = parseInt(n)
-  switch (dir) {
-    case 'forward':
-      h += n
-      d += aim * n
-      break;
-    case 'up':
-      aim -= n
-      break;
-    case 'down':
-      aim += n
-      break;
-  }
-})
-const part2 = h * d
-console.log(part2)
+const pilotSub2 = (commands) => {
+  h = 0
+  d = 0
+  let aim = 0
+  commands.forEach(([dir, n]) => {
+    n = parseInt(n)
+    switch (dir) {
+      case 'forward':
+        h += n
+        d += aim * n
+        break;
+      case 'up':
+        aim -= n
+        break;
+      case 'down':
+        aim += n
+        break;
+    }
+  })
+  return h * d
+}
+
+console.log(pilotSub2(input))
