@@ -13,12 +13,19 @@ for await (const line of input.readLines()) {
 
 const matchInterval = match => [match.index, match.index + match[0].length]
 
-const intervalsIntersect = ([firstStart, firstEnd], [secondStart, secondEnd]) => {
+const intervalsIntersect = (
+  [firstStart, firstEnd], [secondStart, secondEnd]
+) => {
   return !(firstStart >= secondEnd || secondStart >= firstEnd)
 }
 
 // Find each "hub" match and 0+ distinct adjacent "spoke" matches
-const findAdjacentMatches = (hubPattern, spokePattern, minMatches = 1, lines = schematic) => {
+const findAdjacentMatches = (
+  hubPattern,
+  spokePattern,
+  minMatches = 1,
+  lines = schematic
+) => {
   // Construct match "matrices" by line
   const hubMatchLines = []
   const spokeCandidateMatchLines = []
@@ -31,9 +38,12 @@ const findAdjacentMatches = (hubPattern, spokePattern, minMatches = 1, lines = s
   const matchesWithSpokes = []
   hubMatchLines.forEach(
     (hubMatchLine, lineNum) => {
-      const prevSpokeCandidateLine = spokeCandidateMatchLines[lineNum-1] || []
-      const currentSpokeCandidateLine = spokeCandidateMatchLines[lineNum]
-      const nextSpokeCandidateLine = spokeCandidateMatchLines[lineNum+1] || []
+      const prevSpokeCandidateLine =
+        spokeCandidateMatchLines[lineNum-1] || []
+      const currentSpokeCandidateLine =
+        spokeCandidateMatchLines[lineNum]
+      const nextSpokeCandidateLine =
+        spokeCandidateMatchLines[lineNum+1] || []
       for (const hubMatch of hubMatchLine) {
         // find, uniq, and associate matching spoke matches
         const { '0': hubStr, index: hubStart } = hubMatch
