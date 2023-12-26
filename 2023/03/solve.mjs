@@ -27,7 +27,7 @@ const isNearSymbol = (match, lineNum, s = schematic) => {
   const notAtRight = matchEnd < currentLine.length
   const notAtBottom = lineNum < s.length - 1
   // Check above
-  const prevLine = s?.[lineNum - 1]
+  const prevLine = s[lineNum - 1] // possibly undefined, but guarded below
   if (notAtTop) {
     const upperText = prevLine.substring(matchStart, matchEnd)
     if (hasSymbol(upperText)) {
@@ -63,7 +63,7 @@ const isNearSymbol = (match, lineNum, s = schematic) => {
     }
   }
   // Check below
-  const nextLine = s?.[lineNum + 1]
+  const nextLine = s[lineNum + 1] // possibly undefined, but guarded below
   if (notAtBottom) {
     const underText = nextLine.substring(matchStart, matchEnd)
     if (hasSymbol(underText)) {
