@@ -20,11 +20,12 @@ const getCalibrationValue = str => numberellipsis(getDigits(str))
 
 // ------------------------------------------------------------------ Part 2
 
-// Spelled numbers can overlap, e.g. threeight and eighthree, so if we do the naive thing and just
-// replace in-place, we might remove the start of the last spelled number. Instead, to ensure
-// correctness, we replace the first spelled digit, append a copy with the last spelled digit
-// replaced, then run part 1's correction function over the expanded calibration line. Jank, but
-// works 😆
+// Spelled numbers can overlap, e.g. threeight and eighthree, so if we do
+// the naive thing and just replace in-place, we might remove the start of
+// the last spelled number. Instead, to ensure correctness, we replace the
+// first spelled digit, append a copy with the last spelled digit replaced,
+// then run part 1's correction function over the expanded calibration line.
+// Jank, but works 😆
 
 const corrections = {
   'one': '1',
@@ -44,8 +45,12 @@ const reverseCorrections = Object.fromEntries(
   Object.entries(corrections).map(([k, v]) => [reverse(k), v])
 )
 
-const forwardMatcher = new RegExp(`(${Object.keys(corrections).join('|')})`)
-const backwardMatcher = new RegExp(`(${Object.keys(corrections).map(s => reverse(s)).join('|')})`)
+const forwardMatcher = new RegExp(
+  `(${Object.keys(corrections).join('|')})`
+)
+const backwardMatcher = new RegExp(
+  `(${Object.keys(corrections).map(s => reverse(s)).join('|')})`
+)
 
 const expandCorrectly = str => {
   const firstMatch = str.match(forwardMatcher)?.[0]
