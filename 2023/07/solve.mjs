@@ -94,22 +94,22 @@ const typeHandWithJokers = hand => {
   }
   const counts = [...cardMap.values()]
   const largestPossibleGroup = jokerCount + Math.max(...counts, 0)
-  let handType = 0
+  let handType = t.HIGH_CARD
   if (largestPossibleGroup === 5) {
-    handType = 6
+    handType = t.QUINTUPLE
   } else if (largestPossibleGroup === 4) {
-    handType = 5
+    handType = t.QUADRUPLE
   } else if (largestPossibleGroup === 3 && counts.length == 2) {
-    handType = 4
+    handType = t.FULL_HOUSE
   } else if (largestPossibleGroup === 3) {
-    handType = 3
+    handType = t.TRIPLE
   } else if (
     (counts.filter(c => c == 2).length == 2) ||
     (counts.filter(c => c == 2).length == 1 && jokerCount)
   ) {
-    handType = 2
+    handType = t.TWO_PAIR
   } else if (counts.includes(2) || jokerCount) {
-    handType = 1
+    handType = t.PAIR
   }
   return {
     type: handType,
