@@ -103,7 +103,10 @@ const typeHandWithJokers = hand => {
     handType = 4
   } else if (largestPossibleGroup === 3) {
     handType = 3
-  } else if ((counts.filter(c => c == 2).length == 2) || (counts.filter(c => c == 2).length == 1 && jokerCount)) {
+  } else if (
+    (counts.filter(c => c == 2).length == 2) ||
+    (counts.filter(c => c == 2).length == 1 && jokerCount)
+  ) {
     handType = 2
   } else if (counts.includes(2) || jokerCount) {
     handType = 1
